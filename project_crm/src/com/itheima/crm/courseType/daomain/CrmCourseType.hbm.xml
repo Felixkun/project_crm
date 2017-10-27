@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+  
+  <hibernate-mapping>
+  	<class name="com.itheima.crm.courseType.daomain.CrmCourseType" table="crm_courseType">
+  		<id name="courseTypeId">
+  			<generator class="uuid"></generator>
+  		</id>
+  		
+  		<property name="courseCost"></property>
+  		<property name="total" ></property>
+  		<property name="courseName" type="date"></property>
+  		<property name="remark"></property>
+  		
+  		
+  		
+  		
+  		<set name="classes">
+  			<key column="courseTypeId"></key>
+  			<one-to-many class="com.itheima.crm.classes.daomain.CrmClasses"/>
+  		</set>
+  		
+  		
+  	</class>
+  
+  </hibernate-mapping>
+    
