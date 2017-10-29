@@ -10,4 +10,12 @@
 	<constant name="struts.devMode" value="true"></constant>
 	<!-- 1.2标签主题 -->
 	<constant name="struts.ui.theme" value="simple"></constant>
+	
+	
+	<!-- 2 公共项 -->
+	<package name="common" namespace="/" extends="struts-default"></package>
+	
+	
+	<!-- 3 加载其它配置 -->
+	<include file="/struts/struts-staff.xml"></include>
 </struts>
