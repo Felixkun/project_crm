@@ -56,8 +56,7 @@ FONT-SIZE: 12px; COLOR: #4b4b4b; LINE-HEIGHT: 18px; TEXT-DECORATION: none
 					
 				</s:form>
 				
-				<!-- jsp页面 -->
-				<a href="${pageContext.request.contextPath}/pages/frame.jsp">jsp页面</a>
+				
 			</td>
 		</tr>
 	</table>

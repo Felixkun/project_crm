@@ -15,11 +15,11 @@
      				  
      				  
      <!-- 员工配置service dao -->
-     <bean id="staff" class="com.itheima.crm.staff.dao.StaffDao">
-     	<property name="sessionFactory" ref="sessiionFactory"></property>
+     <bean id="staffDao" class="com.itheima.crm.staff.dao.impl.StaffDaoImpl">
+     	<property name="sessionFactory" ref="sessionFactory"></property>
      </bean>
      
-     <bean id="staffService" class="com.itheima.crm.staff.service.StaffService">
+     <bean id="staffService" class="com.itheima.crm.staff.service.impl.StaffserviceImpl">
      	<property name="staffDao" ref="staffDao"></property>
      </bean>
      

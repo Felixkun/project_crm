@@ -53,6 +53,7 @@
     		<tx:method name="update*"/>
     		<tx:method name="delete*"/>
     		<tx:method name="find*" read-only="true"/>
+    		<tx:method name="login*" read-only="true"/>
     	</tx:attributes>
     </tx:advice>
     
@@ -62,5 +63,8 @@
    	<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.itheima.crm.*.service..*.*(..))"/>
    </aop:config>
     
+     
+     
+     <import resource="applicationContext-staff.xml"/>
      
  </beans>

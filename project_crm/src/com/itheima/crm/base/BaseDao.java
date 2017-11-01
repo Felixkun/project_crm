@@ -66,6 +66,6 @@ public interface BaseDao<T> {
 	 * @param endIndex
 	 * @return
 	 */
-	public List<T> findAll(DetachedCriteria criteria , int startIndex , int endIndex);
+	public List<T> findAll(DetachedCriteria criteria , int startIndex , int pageSize);
 	
 }

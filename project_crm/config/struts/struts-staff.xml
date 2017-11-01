@@ -13,7 +13,7 @@
 			<!-- 2没有登录成功 -->
 			<result name="login">/WEB-INF/pages/login.jsp</result>
 			<!-- 3 首页 -->
-			<result name="home">/WEB-INF/pages/frams.jsp</result>
+			<result name="home">/WEB-INF/pages/frame.jsp</result>
 		</action>
 	</package>
 	
