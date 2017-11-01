@@ -1,6 +1,9 @@
 package com.itheima.crm.staff.web.action;
 
+import java.util.List;
+
 import com.itheima.crm.base.BaseAction;
+import com.itheima.crm.department.daomain.CrmDepartment;
 import com.itheima.crm.staff.daomain.CrmStaff;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -30,6 +33,43 @@ public class StaffAction extends BaseAction<CrmStaff> {
 	public String home(){
 		return "home";
 	}
+	
+	
+	
+	public String findAll(){
+		List<CrmStaff> allStaff = this.getStaffService().findAllStaff();
+		
+		put("allStaff" , allStaff);
+		return "findAll";
+	}
+	
+	
+	
+	public String editUI(){
+		//1通过id查询员工
+		CrmStaff findStaff = this.getStaffService().findById(getModel().getStaffId());
+		push(findStaff);
+		
+		//2查询所有部门
+		List<CrmDepartment> allDepartment = this.getDepartmentService().findAll();
+		
+		set("allDepartment" ,allDepartment );
+		
+		return "editUI";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

@@ -11,7 +11,6 @@ public class StaffDaoImpl<T> extends BaseDaoImpl<CrmStaff> implements StaffDao {
 
 	@Override
 	public CrmStaff find(String loginName, String loginPwd) {
-		System.out.println("StaffDaoImpl++++++++++++++++++++=");
 		List<CrmStaff> list = this.getHibernateTemplate().find("from CrmStaff where loginName =? and loginPwd = ?", loginName,loginPwd);
 		if(list.size() == 1){
 			return list.get(0);

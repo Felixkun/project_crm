@@ -15,13 +15,13 @@
      				  
      				  
      <!-- 员工配置service dao -->
-      <bean id="staffDao" class="com.itheima.crm.staff.dao.impl.StaffDaoImpl">
+     <bean id="departmentDao" class="com.itheima.crm.department.dao.impl.DepartmentDaoImpl">
      	<property name="sessionFactory" ref="sessionFactory"></property>
      </bean>
      
-     <bean id="staffService" class="com.itheima.crm.staff.service.impl.StaffServiceImpl">
-     	<property name="staffDao" ref="staffDao"></property>
-     </bean> 
+     <bean id="departmentService" class="com.itheima.crm.department.service.impl.DepartServiceImpl">
+     	<property name="departmentDao" ref="departmentDao"></property>
+     </bean>
      
      
  </beans>
