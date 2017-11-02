@@ -26,9 +26,9 @@
     	<%--高级查询 --%>
 		<a href="javascript:void(0)" onclick="condition()"><img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" /></a>
     	<%--员工注入 --%>
-	  	<a href="${pageContext.request.contextPath}/pages/staff/addStaff.jsp">
+    	<s:a namespace="/" action="staffAction_add">
 	  		<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
-	  	</a>
+	  	</s:a>
       
     </td>
     <td width="3%" align="right"><img src="${pageContext.request.contextPath}/images/tright.gif"/></td>

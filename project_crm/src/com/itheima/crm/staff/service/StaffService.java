@@ -16,4 +16,8 @@ public interface StaffService {
 	CrmStaff findById(String staffId);
 
 	List<CrmStaff> findAllStaff();
+
+	public void updateStaff(CrmStaff model);
+
+	public void saveStaff(CrmStaff staff);
 }

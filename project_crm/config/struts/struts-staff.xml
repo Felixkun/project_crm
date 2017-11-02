@@ -17,9 +17,18 @@
 			
 			<!-- 4 查询所有 -->
 			<result name="findAll">/WEB-INF/pages/staff/listStaff.jsp</result>
-			
+			 
 			<!-- 5 编辑员工 -->
 			<result name="editUI">/WEB-INF/pages/staff/editStaff.jsp</result>
+			
+			<!-- 6.添加员工 -->
+			<result name="add">/WEB-INF/pages/staff/addStaff.jsp</result>
+			
+			
+			<result name="edit" type="redirectAction">
+				<param name="namespace">/</param>
+				<param name="actionName">staffAction_findAll</param>
+			</result>
 		</action>
 	</package>
 	

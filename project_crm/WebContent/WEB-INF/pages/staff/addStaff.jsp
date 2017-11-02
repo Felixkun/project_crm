@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="/struts-tags"  prefix="s"%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -34,48 +35,100 @@
   </tr>
 </table>
 
-<form action="${pageContext.request.contextPath}/pages/staff/listStaff.jsp" method="post">
+<s:form namespace="/" action="staffAction_addStaff">
+
 	<table width="88%" border="0" class="emp_table" style="width:80%;">
 	 <tr>
 	    <td>登录名：</td>
-	    <td><input type="text" name="loginName" value="" /> </td>
+	    <td><s:textfield name="loginName"></s:textfield>  
 	    <td>密码：</td>
-	    <td><input type="password" name="loginPwd" /> </td>
+	    <td><s:password name="loginPwd"></s:password>
 	  </tr>
 	 <tr>
 	    <td>姓名：</td>
-	    <td><input type="text" name="staffName" value="" id="staffAction_add_staffName"/> </td>
+	    <td><s:textfield name="staffName" id="staffAcion_add_staffName"></s:textfield>
 	    <td>性别：</td>
-	    <td><input type="radio" name="gender"  value="男"/>男
-	    	<input type="radio" name="gender"  value="女"/>女
+	    <td>
+	   <s:radio list="{'男','女'}" name="gender"></s:radio>
 		</td>
 	  </tr>
 	 <tr>
 	    <td width="10%">所属部门：</td>
 	    <td width="20%">
-	    	<select name="crmPost.crmDepartment.depId"onchange="changePost(this)">
-			    <option value="">----请--选--择----</option>
-			    <option value="2c9091c14c78e58b014c78e67de10001">java学院</option>
-			    <option value="2c9091c14c78e58b014c78e68ded0002">咨询部</option>
-			</select>
+	    	<s:select list="allDepartment" name="post.department.depId" onchange="showPost(this)"
+	    		listKey="depId" listValue="depName"
+	    		headerKey="" headerValue="----请--选--择----"
+	    	>
+	    	</s:select>
 
 	    </td>
 	    <td width="8%">职务：</td>
 	    <td width="62%">
-	    	<select id="postSelectId" name="crmPost.postId">
-	    		<option>----请--选--择----</option>
-	    	</select>
+	    	<s:select list="post != null ? post.department.postSet : {}"
+	    		name="post.postId" listKey="postId" listValue="postName"
+	    		headerKey="" headerValue="----请--选--择----" id="postSelectId"
+	    	></s:select>
 	    </td>
 	  </tr>
 	   <tr>
 	    <td width="10%">入职时间：</td>
 	    <td width="20%">
-	    	<input type="text" name="onDutyDate" value="" readonly="readonly"  onfocus="c.showMoreDay=true; c.show(this);" />
+	    	<s:date name="onDutyDate" format="yyyy-MM-dd" var="myDate"/>
+	    	<s:textfield name="onDutyDate" readonly="true" onfocus="c.showMoreDay=true; c.show(this);"></s:textfield>
 	    </td>
 	    <td width="8%"></td>
 	    <td width="62%"></td>
 	  </tr>
 	</table>
-</form>
+</s:form>
+
+	<script type="text/javascript">
+		function showPost(obj) {
+			var depId = obj.value;
+			
+			//2.发送ajax 通过部门查询职务
+			var xmlhttp=null;
+			if(window.XMLHttpRequest){
+				xmlhttp = new XMLHttpRequest();
+			}else if(window.ActiveXObject){
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			//3设置回调函数
+			xmlhttp.onreadystatechange = function(){
+				//3.1请求完成正常响应
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+					//3.2获得数据 并展示，手动ajax获得json数据字符串
+					var textData = xmlhttp.responseText;
+				
+					//3.3将字符串手动转换为json对象
+					var jsonData = eval("("+textData+")");
+					
+					//3.4获得select对象
+					var postSelectElement = document.getElementById("postSelectId")
+					postSelectElement.innerHTML = "<option value=''>----请--选--择----</option>";
+
+					//3.5遍历
+					for(var i = 0; i<jsonData.length; i++){
+						var postObj = jsonData[i];
+						//获得职务id
+						var postId = postObj.postId;
+						//获取职务名称
+						var postName = postObj.postName;
+
+						//将数显示到select标签
+						postSelectElement.innerHTML += "<option value='"+postId+"'>"+postName+"</option>";
+					}
+					
+				}
+			}
+			//4.创建连接
+			var url = "${pageContext.request.contextPath}/postAction_findAllWithDepartment?department.depId=" + depId;
+			xmlhttp.open("GET",url);
+			//5.发送请求
+			xmlhttp.send(null);
+		}
+	
+	</script>
 </body>
 </html>

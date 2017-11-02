@@ -22,12 +22,13 @@ public class PostAction extends BaseAction<CrmPost> {
 	public String findAllWithDepartment() throws IOException{
 		
 		
-		//1.æŸ¥è¯¢
+		//1.²éÑ¯
 		List<CrmPost> allPost = this.getPostService().findAll(this.getModel().getDepartment());
 		
-		
 		JsonConfig config  = new JsonConfig();
+		
 		config.setExcludes(new String[]{"department","staffSet"});
+		
 		
 		String jsonData = JSONArray.fromObject(allPost, config).toString();
 		

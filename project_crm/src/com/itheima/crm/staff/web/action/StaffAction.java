@@ -47,7 +47,7 @@ public class StaffAction extends BaseAction<CrmStaff> {
 	
 	public String editUI(){
 		//1通过id查询员工
-		CrmStaff findStaff = this.getStaffService().findById(getModel().getStaffId());
+		CrmStaff findStaff = this.getStaffService().findById(this.getModel().getStaffId());
 		push(findStaff);
 		
 		//2查询所有部门
@@ -60,6 +60,29 @@ public class StaffAction extends BaseAction<CrmStaff> {
 	
 	
 	
+	public String edit(){
+		this.getStaffService().updateStaff(this.getModel());
+		return "edit";
+	}
+	
+	
+	public String add(){
+		
+		//2查询所有部门
+		List<CrmDepartment> allDepartment = this.getDepartmentService().findAll();
+				
+		set("allDepartment" ,allDepartment );
+		
+		return "add";
+		
+	}
+	
+	public String addStaff(){
+		
+		this.getStaffService().saveStaff(this.getModel());
+		
+		return "edit";
+	}
 	
 	
 	

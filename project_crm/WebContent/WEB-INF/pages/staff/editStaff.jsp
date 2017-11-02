@@ -44,7 +44,7 @@
 	    <td>登录名：</td>
 	    <td><s:textfield name="loginName"></s:textfield> </td>
 	    <td>密码：</td>
-	    <td><s:password name="loginPwd" showPassword="true"></s:password> </td>
+	    <td><s:password name="loginPwd" showPassword="true" ></s:password> </td>
 	  </tr>
 	 <tr>
 	    <td>姓名：</td>
@@ -104,10 +104,11 @@
 				if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
 					//3.2获得数据 并展示，手动ajax获得json数据字符串
 					var textData = xmlhttp.responseText;
+				
 					//3.3将字符串手动转换为json对象
 					var jsonData = eval("("+textData+")");
 
-					alert(jsonData);
+					
 					//3.4获得select对象
 					var postSelectElement = document.getElementById("postSelectId")
 					postSelectElement.innerHTML = "<option value=''>----请--选--择----</option>";
@@ -121,7 +122,7 @@
 						var postName = postObj.postName;
 
 						//将数显示到select标签
-						postSelectElement.innetHTML += "<option value='"+postId+"'>"+postName+"</option>";
+						postSelectElement.innerHTML += "<option value='"+postId+"'>"+postName+"</option>";
 					}
 					
 				}

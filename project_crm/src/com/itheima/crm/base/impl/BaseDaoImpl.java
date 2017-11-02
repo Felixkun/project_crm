@@ -24,8 +24,11 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	
 	@Override
 	public void save(T t) {
-		this.getHibernateTemplate().save(t);
-		
+	    this.getHibernateTemplate().save(t);
+	    
+	    //执行后两句才会立即提交到数据库
+		this.getHibernateTemplate().flush();
+		this.getHibernateTemplate().clear();
 	}
 
 	@Override
