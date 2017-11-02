@@ -13,9 +13,14 @@
 	
 	
 	<!-- 2 公共项 -->
-	<package name="common" namespace="/" extends="struts-default"></package>
+	<package name="common" namespace="/" extends="struts-default">
+		<action name="uiAction_*_*">
+			<result>/WEB-INF/pages/{1}/{2}.jsp</result>
+		</action>
+	</package>
 	
 	
 	<!-- 3 加载其它配置 -->
 	<include file="/struts/struts-staff.xml"></include>
+	<include file="/struts/struts-post.xml"></include>
 </struts>

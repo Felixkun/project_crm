@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 
 
 import com.itheima.crm.department.service.DepartmentService;
+import com.itheima.crm.post.service.PostService;
 import com.itheima.crm.staff.service.StaffService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -11,7 +12,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 
-	//1.·â×°Êı¾İ
+	//1.å°è£…æ•°æ®
 	private T t;
 	
 	@Override
@@ -20,10 +21,10 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 		return t;
 	}
 
-	//1.1ÊµÀı»¯t
+	//1.1å®ä¾‹åŒ–t
 	public BaseAction(){
 		try{
-			//»ñµÃÔËĞĞÊ±class
+			//è·å¾—è¿è¡Œæ—¶class
 			ParameterizedType paramType = (ParameterizedType) this.getClass().getGenericSuperclass();
 			Class<T> clazz = (Class<T>) paramType.getActualTypeArguments()[0];
 			t = clazz.newInstance();
@@ -34,9 +35,9 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	
 	
 	
-	//2.spring×¢Èëservice£¬¶à¸ö
+	//2.springæ³¨å…¥serviceï¼Œå¤šä¸ª
 	
-	//2.1 Ô±¹¤
+	//2.1 å‘˜å·¥
 	private StaffService staffService;
 
 	public StaffService getStaffService() {
@@ -48,10 +49,11 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	}
 	
 	
-	//2.2²¿ÃÅ
+	
+	
+	
+	//2.2éƒ¨é—¨
 	private DepartmentService departmentService;
-	
-	
 	public DepartmentService getDepartmentService() {
 		return departmentService;
 	}
@@ -59,14 +61,28 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	public void setDepartmentService(DepartmentService departmentService) {
 		this.departmentService = departmentService;
 	}
+	
+	
+	
+	
+	
+	
+	//2.3èŒåŠ¡
+	private PostService postService;
+
+	public PostService getPostService() {
+		return postService;
+	}
+
+	public void setPostService(PostService postService) {
+		this.postService = postService;
+	}
 
 	
 	
 	
 	
-	
-	
-	//3.¼ò»¯ÖµÕ»²Ù×÷
+	//3.ç®€åŒ–å€¼æ ˆæ“ä½œ
 	public void push(Object o){
 		ActionContext.getContext().getValueStack().push(o);
 	}

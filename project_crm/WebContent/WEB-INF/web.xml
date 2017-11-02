@@ -4,6 +4,19 @@
 		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>project_crm</display-name>
   
+  
+  <!-- spring 过滤器，延迟session关闭 -->
+   <filter>
+  	<filter-name>openSession</filter-name>
+  	<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>openSession</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping> 
+  
+  
+  
   <!-- 1.1Spring 配置文件位置 -->
   <context-param>
   	<param-name>contextConfigLocation</param-name>

@@ -11,7 +11,7 @@
     <frameset id="main" cols="170,9,*" framespacing="0px" frameborder="no" >
         <frameset rows="30,*,40" framespacing="0px" frameborder="no" >
 			<frame src="${pageContext.request.contextPath}/pages/frame/left1.jsp" scrolling="no"/>
-            <frame src="${pageContext.request.contextPath}/pages/frame/left.jsp" scrolling="no"/>
+            <frame src="${pageContext.request.contextPath}/uiAction_frame_left.action" scrolling="no"/>
             <frame src="${pageContext.request.contextPath}/pages/frame/left2.jsp" scrolling="no"/>
         </frameset>
         <frame src="${pageContext.request.contextPath}/pages/frame/control.jsp" scrolling="no"/>

@@ -14,13 +14,13 @@
      				  http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
      				  
      				  
-     <!-- 部门配置service dao -->
-     <bean id="departmentDao" class="com.itheima.crm.department.dao.impl.DepartmentDaoImpl">
+     <!-- 职务配置service dao -->
+     <bean id="postDao" class="com.itheima.crm.post.dao.impl.PostDaoImpl">
      	<property name="sessionFactory" ref="sessionFactory"></property>
      </bean>
      
-     <bean id="departmentService" class="com.itheima.crm.department.service.impl.DepartServiceImpl">
-     	<property name="departmentDao" ref="departmentDao"></property>
+     <bean id="postService" class="com.itheima.crm.post.service.impl.PostServiceImpl">
+     	<property name="postDao" ref="postDao"></property>
      </bean>
      
      

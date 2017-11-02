@@ -85,7 +85,7 @@
   </tr>
   
     <s:iterator value="#allStaff" status="vs">
-	  <tr class="<s:property  value="#vs.even?'table1' : 'table2'"/>" > 
+	  <tr class="<s:property  value="#vs.even ? 'tabtd2' : 'tabtd2'"/>" > 
 	    <td align="center"><s:property value="staffName" /></td>
 	    <td align="center"><s:property value="gender" /></td>
 	    <td align="center"><s:date name="onDutyDate" format="yyyy-MM-dd"/></td>
