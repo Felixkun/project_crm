@@ -81,6 +81,36 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T> {
 	
 	
 	
+	//2.4分页
+	private int pageNum = 0;
+	
+	private int pageSize = 10;
+	
+	
+	
+	
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	
+	
+	
+	
+	
+	
 	
 	//3.简化值栈操作
 	public void push(Object o){

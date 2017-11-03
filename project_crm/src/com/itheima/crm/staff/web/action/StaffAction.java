@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.itheima.crm.base.BaseAction;
 import com.itheima.crm.department.daomain.CrmDepartment;
+import com.itheima.crm.page.PageBean;
 import com.itheima.crm.staff.daomain.CrmStaff;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -16,7 +17,7 @@ public class StaffAction extends BaseAction<CrmStaff> {
 	private static final long serialVersionUID = 1L;
 
 
-	//Ô±¹¤µÇÂ¼
+	//å‘˜å·¥ç™»å½•
 	public String login(){
 		CrmStaff findStaff = getStaffService().login(getModel());
 		if(findStaff != null){
@@ -24,33 +25,47 @@ public class StaffAction extends BaseAction<CrmStaff> {
 			return "success";
 		}
 		
-		this.addFieldError("", "ÓÃ»§ÃûÓëÃÜÂë²»Æ¥Åä");
+		this.addFieldError("", "ç”¨æˆ·åä¸å¯†ç ä¸åŒ¹é…");
 		return "login";
 	}
 
 	
-	//ÏÔÊ¾Ê×Ò³
+	//æ˜¾ç¤ºé¦–é¡µ
 	public String home(){
 		return "home";
 	}
 	
 	
-	
+	//æŸ¥è¯¢æ‰€æœ‰å‘˜å·¥
 	public String findAll(){
-		List<CrmStaff> allStaff = this.getStaffService().findAllStaff();
 		
-		put("allStaff" , allStaff);
+		//1æŸ¥è¯¢æ‰€æœ‰éƒ¨é—¨
+		List<CrmDepartment> allDepartment = this.getDepartmentService().findAll();
+				
+		put("allDepartment" ,allDepartment );
+//		
+//		
+//		//2.æŸ¥è¯¢æ‰€æœ‰å‘˜å·¥
+//		List<CrmStaff> allStaff = this.getStaffService().findAllStaff();
+//		
+//		put("allStaff" , allStaff);
+//		return "findAll";
+		
+		
+		//2.åˆ†é¡µ+æ¡ä»¶æŸ¥è¯¢æ‰€æœ‰å‘˜å·¥
+		PageBean<CrmStaff> pageBean = this.getStaffService().findAll(this.getModel() , getPageNum() , getPageSize());
+		put("pageBean" , pageBean);
 		return "findAll";
 	}
 	
 	
 	
 	public String editUI(){
-		//1Í¨¹ıid²éÑ¯Ô±¹¤
+		//1é€šè¿‡idæŸ¥è¯¢å‘˜å·¥
 		CrmStaff findStaff = this.getStaffService().findById(this.getModel().getStaffId());
 		push(findStaff);
 		
-		//2²éÑ¯ËùÓĞ²¿ÃÅ
+		//2æŸ¥è¯¢æ‰€æœ‰éƒ¨é—¨
 		List<CrmDepartment> allDepartment = this.getDepartmentService().findAll();
 		
 		set("allDepartment" ,allDepartment );
@@ -68,7 +83,7 @@ public class StaffAction extends BaseAction<CrmStaff> {
 	
 	public String add(){
 		
-		//2²éÑ¯ËùÓĞ²¿ÃÅ
+		//2æŸ¥è¯¢æ‰€æœ‰éƒ¨é—¨
 		List<CrmDepartment> allDepartment = this.getDepartmentService().findAll();
 				
 		set("allDepartment" ,allDepartment );
@@ -85,11 +100,16 @@ public class StaffAction extends BaseAction<CrmStaff> {
 	}
 	
 	
+
+	
+	public String findAllDepartment(){
+		List<CrmDepartment> allDepartment = this.getDepartmentService().findAll();
+		set("allDepartment" ,allDepartment );
+		return "none";
+	}
 	
 	
-	
-	
-	
+
 	
 	
 	

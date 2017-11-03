@@ -13,7 +13,7 @@ import com.itheima.crm.page.PageHibernateCallBack;
 public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 
 	
-	//T ±àÒëÊÇ£¬×¢ÊÍ±äÁ¿ ÔËÐÐÊ±²Å¿ÉÒÔ»ñµÃ¾ßÌåÀàÐÍ
+	//T ï¿½ï¿½ï¿½ï¿½ï¿½Ç£ï¿½×¢ï¿½Í±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Å¿ï¿½ï¿½Ô»ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	private Class<?>  beanClass;
 	
 	public BaseDaoImpl(){
@@ -26,7 +26,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 	public void save(T t) {
 	    this.getHibernateTemplate().save(t);
 	    
-	    //Ö´ÐÐºóÁ½¾ä²Å»áÁ¢¼´Ìá½»µ½Êý¾Ý¿â
+	    //Ö´ï¿½Ðºï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á½»ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½
 		this.getHibernateTemplate().flush();
 		this.getHibernateTemplate().clear();
 	}
@@ -67,7 +67,7 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 
 	@Override
 	public int getTotalRecord(String condition, Object[] params) {
-		String hql = "select count(c) from " + beanClass.getName() + " where 1=1 " + condition;
+		String hql = "select count(*) from " + beanClass.getName() + " where 1=1 " + condition;
 		List<Long> list = this.getHibernateTemplate().find(hql, params);
 		return list.get(0).intValue();
 	}

@@ -22,7 +22,7 @@ public class PostAction extends BaseAction<CrmPost> {
 	public String findAllWithDepartment() throws IOException{
 		
 		
-		//1.²éÑ¯
+		//1.ï¿½ï¿½Ñ¯
 		List<CrmPost> allPost = this.getPostService().findAll(this.getModel().getDepartment());
 		
 		JsonConfig config  = new JsonConfig();
@@ -34,7 +34,6 @@ public class PostAction extends BaseAction<CrmPost> {
 		
 		
 		ServletActionContext.getResponse().setContentType("text/html;charset=UTF-8");
-		System.out.println(jsonData);
 		ServletActionContext.getResponse().getWriter().print(jsonData);
 		return "none";
 	}

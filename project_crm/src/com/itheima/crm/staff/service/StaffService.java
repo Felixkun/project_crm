@@ -2,12 +2,13 @@ package com.itheima.crm.staff.service;
 
 import java.util.List;
 
+import com.itheima.crm.page.PageBean;
 import com.itheima.crm.staff.daomain.CrmStaff;
 
 public interface StaffService {
 	
 	/**
-	 * ÓÃ»§µÇÂ¼
+	 * ï¿½Ã»ï¿½ï¿½ï¿½Â¼
 	 * @param staff
 	 * @return
 	 */
@@ -20,4 +21,6 @@ public interface StaffService {
 	public void updateStaff(CrmStaff model);
 
 	public void saveStaff(CrmStaff staff);
+
+	public PageBean<CrmStaff> findAll(CrmStaff model, int pageNum, int pageSize);
 }

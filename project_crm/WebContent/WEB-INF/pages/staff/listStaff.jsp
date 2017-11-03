@@ -10,13 +10,12 @@
 <link href="${pageContext.request.contextPath}/css/sys.css" type="text/css" rel="stylesheet" />
 </head>
 
-<body >
+<body  onload="resetPostId()"  >
  <table border="0" cellspacing="0" cellpadding="0" width="100%">
   <tr>
     <td class="topg"></td>
   </tr>
 </table>
-
 <table border="0" cellspacing="0" cellpadding="0"  class="wukuang"width="100%">
   <tr>
     <td width="1%"><img src="${pageContext.request.contextPath}/images/tleft.gif"/></td>
@@ -24,7 +23,7 @@
    
     <td width="57%"align="right">
     	<%--高级查询 --%>
-		<a href="javascript:void(0)" onclick="condition()"><img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" /></a>
+		<a href="javascript:void(0)" onclick="javascript:document.forms[0].submit();"><img src="${pageContext.request.contextPath}/images/button/gaojichaxun.gif" /></a>
     	<%--员工注入 --%>
     	<s:a namespace="/" action="staffAction_add">
 	  		<img src="${pageContext.request.contextPath}/images/button/tianjia.gif" />
@@ -36,36 +35,39 @@
 </table>
 
 <!-- 查询条件：马上查询 -->
-<form id="conditionFormId" action="${pageContext.request.contextPath}/staff/staffAction_findAll" method="post">
+<s:form namespace="/" action="staffAction_findAll" >
+	
+	<s:hidden name="post.department.depId"></s:hidden>
+	<s:hidden name="post.postId"  id="postId"></s:hidden>
+	<s:hidden name="pageNum" value="0"></s:hidden>
 	<table width="88%" border="0" style="margin: 20px;" >
 	  <tr>
 	    <td width="80px">部门：</td>
 	    <td width="200px">
-	    	
-	    	<select name="crmPost.crmDepartment.depId" onchange="changePost(this)">
-			    <option value="">--请选择部门--</option>
-			    <option value="2c9091c14c78e58b014c78e67de10001">java学院</option>
-			    <option value="2c9091c14c78e58b014c78e68ded0002">咨询部</option>
-			</select>
+	    	<s:select list="#allDepartment" onchange="showPost(this)"
+	    		name="post.department.depId" 
+	    		listKey="depId" listValue="depName"
+	    		headerKey="" headerValue="----请--选--择----"
+	    	>
+	    	</s:select>
 
 	    </td>
 	    <td width="80px" >职务：</td>
 	    <td width="200px" >
-	    	
-	    	<select name="crmPost.postId" id="postSelectId">
-			    <option value="">--请选择职务--</option>
-			    <option value="2c9091c14c78e58b014c78e6b34a0003">总监</option>
-			    <option value="2c9091c14c78e58b014c78e6d4510004">讲师</option>
-			    <option value="2c9091c14c78e58b014c78e6f2340005">主管</option>
-			</select>
+	    	<s:select list="post != null ? post.department.postSet : {}"
+	    		name="post.postId" listKey="postId" listValue="postName"
+	    		headerKey="" headerValue="--请选择职务--" id="postSelectId" 
+	    	>
+	    	</s:select>
 
 	    </td>
 	    <td width="80px">姓名：</td>
-	    <td width="200px" ><input type="text" name="staffName" size="12" /></td>
+	   
+	    <td width="200px" > <s:textfield name="staffName"  size="12"></s:textfield></td>
 	    <td ></td>
 	  </tr>
 	</table>
-</form>
+</s:form>
 
 
 <table border="0" cellspacing="0" cellpadding="0" style="margin-top:5px;">
@@ -84,7 +86,7 @@
     <td width="10%" align="center">编辑</td>
   </tr>
   
-    <s:iterator value="#allStaff" status="vs">
+    <s:iterator value="#pageBean.data" status="vs">
 	  <tr class="<s:property  value="#vs.even ? 'tabtd2' : 'tabtd2'"/>" > 
 	    <td align="center"><s:property value="staffName" /></td>
 	    <td align="center"><s:property value="gender" /></td>
@@ -116,6 +118,65 @@
     </td>
   </tr>
 </table>
---%>
+--%>        
+
+		<script type="text/javascript">
+		function showPost(obj) {
+			//1.活动所选部门
+			var depId = obj.value;
+
+			//2.发送ajax 通过部门查询职务
+			var xmlhttp=null;
+			if(window.XMLHttpRequest){
+				xmlhttp = new XMLHttpRequest();
+			}else if(window.ActiveXObject){
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+
+			//3设置回调函数
+			xmlhttp.onreadystatechange = function(){
+				//3.1请求完成正常响应
+				if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+					//3.2获得数据 并展示，手动ajax获得json数据字符串
+					var textData = xmlhttp.responseText;
+				
+					//3.3将字符串手动转换为json对象
+					var jsonData = eval("("+textData+")");
+
+					
+					//3.4获得select对象
+					var postSelectElement = document.getElementById("postSelectId")
+					postSelectElement.innerHTML = "<option value=''>----请--选--择----</option>";
+
+					//3.5遍历
+					for(var i = 0; i<jsonData.length; i++){
+						var postObj = jsonData[i];
+						//获得职务id
+						var postId = postObj.postId;
+						//获取职务名称
+						var postName = postObj.postName;
+
+						//将数显示到select标签
+						postSelectElement.innerHTML += "<option value='"+postId+"'>"+postName+"</option>";
+					}
+					
+				}
+			}
+			//4.创建连接
+			var url = "${pageContext.request.contextPath}/postAction_findAllWithDepartment?department.depId=" + depId;
+			xmlhttp.open("GET",url);
+			//5.发送请求
+			xmlhttp.send(null);
+		}
+
+		function resetPostId() {
+			var element = document.getElementById("postId");
+			element.value="";
+		}
+		
+	</script>
+
+        
+
 </body>
 </html>
